@@ -162,7 +162,7 @@ public class GameManagerUnitTest {
     }
 
     @Test
-    public void checkFourCornersWin() throws Exception {
+    public void checkFourCorners_isWinningBoard() throws Exception {
 
         Player[][] winningBoard_X = new Player[][]{
                 {Player.X, null, null, Player.X},
@@ -195,6 +195,28 @@ public class GameManagerUnitTest {
         assertTrue(GameManager.checkFourCornersWin(Player.O));
 
     }
+
+
+    @Test
+    public void checkFourCorners_isLosingBoard() throws Exception {
+
+        Player[][] losingBoard = new Player[][]{
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+        };
+
+        GameManager.createGame(losingBoard);
+
+        // X
+        assertFalse(GameManager.checkFourCornersWin(Player.X));
+
+        // O
+        assertFalse(GameManager.checkFourCornersWin(Player.O));
+
+    }
+
 //
 //    @Test
 //    public void checkSquareWin() throws Exception {
