@@ -217,11 +217,26 @@ public class GameManagerUnitTest {
 
     }
 
-//
-//    @Test
-//    public void checkSquareWin() throws Exception {
-//
-//    }
+
+    @Test
+    public void checkBlobWin_isWinningBoard() throws Exception {
+
+        Player[][] winningBoard = new Player[][]{
+                {null, null, null, null},
+                {null, Player.O, Player.O, null},
+                {null, Player.O, Player.O, null},
+                {null, null, null, null}
+        };
+
+        GameManager.createGame(winningBoard);
+
+        // O
+        assertTrue(GameManager.checkBlobWin(Player.O));
+
+        // X
+        assertFalse(GameManager.checkBlobWin(Player.X));
+
+    }
 
 
     // endregion
