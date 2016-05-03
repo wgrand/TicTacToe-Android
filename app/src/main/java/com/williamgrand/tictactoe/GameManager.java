@@ -57,11 +57,9 @@ public class GameManager {
         for (int col = 0; col < boardSize; col++) {
             if (board[0][col] == p) // found possible win, traverse downward to verify
             {
-                for (int row = 0; row < boardSize; row++) {
-//                    System.out.println(col + "," + board[col][row]);
+                for (int row = 0; row < boardSize; row++)
                     if (board[row][col] != p)
                         break; // found another player, continue to loop through the columns
-                }
                 foundWin = true;
             }
         }

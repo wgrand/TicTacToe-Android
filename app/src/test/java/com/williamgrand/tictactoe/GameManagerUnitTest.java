@@ -160,14 +160,44 @@ public class GameManagerUnitTest {
         assertFalse(GameManager.checkDiagonalWin(Player.O));
 
     }
+
+    @Test
+    public void checkFourCornersWin() throws Exception {
+
+        Player[][] winningBoard_X = new Player[][]{
+                {Player.X, null, null, Player.X},
+                {null, null, null, null},
+                {null, null, null, null},
+                {Player.X, null, null, Player.X}
+        };
+
+        GameManager.createGame(winningBoard_X);
+
+        // X
+        assertTrue(GameManager.checkFourCornersWin(Player.X));
+
+        // O
+        assertFalse(GameManager.checkFourCornersWin(Player.O));
+
+        Player[][] winningBoard_O = new Player[][]{
+                {Player.O, null, null, Player.O},
+                {null, null, null, null},
+                {null, null, null, null},
+                {Player.O, null, null, Player.O}
+        };
+
+        GameManager.createGame(winningBoard_O);
+
+        // X
+        assertFalse(GameManager.checkFourCornersWin(Player.X));
+
+        // O
+        assertTrue(GameManager.checkFourCornersWin(Player.O));
+
+    }
 //
 //    @Test
-//    public static boolean checkFourCornersWin(Player p)
-//    {
-//    }
-//
-//    @Test
-//    public static boolean checkSquareWin(Player p) {
+//    public void checkSquareWin() throws Exception {
 //
 //    }
 
