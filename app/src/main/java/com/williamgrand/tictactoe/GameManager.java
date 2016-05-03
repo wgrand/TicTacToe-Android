@@ -13,10 +13,26 @@ public class GameManager {
         // create a game of size 4x4
         createGame(4);
     }
+
+    public static void createGame(Player[][] board)
+    {
+        GameManager.board = board;
+        boardSize = board[0].length;
+    }
+
     public static void createGame(int boardSize)
     {
         board = new Player[boardSize][boardSize];
         GameManager.boardSize = boardSize;
+    }
+
+    public static void printBoard()
+    {
+        for (int row = 0; row < boardSize; row++) {
+            for (int col = 0; col < boardSize; col++)
+                System.out.print(board[row][col] + ",");
+            System.out.println();
+        }
     }
 
     // region Check Win
@@ -38,14 +54,17 @@ public class GameManager {
     {
         // traverse horizontally until we find a player
         boolean foundWin = false;
-        for (int col = 0; col < boardSize; col++)
-            if (board[col][0] == p) // found possible win, traverse downward to verify
+        for (int col = 0; col < boardSize; col++) {
+            if (board[0][col] == p) // found possible win, traverse downward to verify
             {
-                for (int row = 0; row < boardSize; row++)
-                    if (board[col][row] != p)
+                for (int row = 0; row < boardSize; row++) {
+//                    System.out.println(col + "," + board[col][row]);
+                    if (board[row][col] != p)
                         break; // found another player, continue to loop through the columns
+                }
                 foundWin = true;
             }
+        }
 
         return foundWin;
 
@@ -56,10 +75,10 @@ public class GameManager {
         // traverse vertically until we find a player
         boolean foundWin = false;
         for (int row = 0; row < boardSize; row++)
-            if (board[0][row] == p) // found possible win, traverse downward to verify
+            if (board[row][0] == p) // found possible win, traverse downward to verify
             {
                 for (int col = 0; col < boardSize; col++)
-                    if (board[col][row] != p)
+                    if (board[row][col] != p)
                         break; // found another player, continue to loop through the rows
                 foundWin = true;
             }
