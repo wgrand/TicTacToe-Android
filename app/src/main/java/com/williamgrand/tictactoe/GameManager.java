@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class GameManager {
 
     public static Player[][] board;
-    public static int boardSize;
+    public static int boardSize = 4;
 
     private static Player turn = Player.O;
     private static int moveCount = 0;
@@ -73,6 +73,17 @@ public class GameManager {
 
     // region Check Win
 
+    public static Player checkWinner()
+    {
+        boolean didWin = checkWin(Player.O);
+        if (didWin)
+            return Player.O;
+        didWin = checkWin(Player.X);
+        if (didWin)
+            return Player.X;
+        return null;
+    }
+
     public static boolean checkWin(Player p)
     {
         if (checkVerticalWin(p))
@@ -81,45 +92,60 @@ public class GameManager {
             return true;
         else if (checkDiagonalWin(p))
             return true;
-        else if(checkFourCornersWin(p))
+        else if (checkFourCornersWin(p))
             return true;
-        else if(checkBlobWin(p))
+        else if (checkBlobWin(p))
             return true;
-        return false;
+        else
+            return false;
     }
 
     public static boolean checkVerticalWin(Player p)
     {
+        boolean foundWinInColumn = false;
+
         // traverse horizontally until we find a player
-        boolean foundWin = false;
         for (int col = 0; col < boardSize; col++) {
             if (board[0][col] == p) // found possible win, traverse downward to verify
             {
+                foundWinInColumn = true;
                 for (int row = 0; row < boardSize; row++)
-                    if (board[row][col] != p)
-                        break; // found another player, continue to loop through the columns
-                foundWin = true;
+                    if (board[row][col] != p) {
+                        // found another player, continue to loop through the columns
+                        foundWinInColumn = false;
+                        break;
+                    }
+                // entire column belonged to player, return true
+                if (foundWinInColumn)
+                    return true;
             }
         }
 
-        return foundWin;
+        return false;
 
     }
 
     public static boolean checkHorizontalWin(Player p)
     {
         // traverse vertically until we find a player
-        boolean foundWin = false;
+        boolean foundWinInRow = false;
         for (int row = 0; row < boardSize; row++)
             if (board[row][0] == p) // found possible win, traverse downward to verify
             {
+                foundWinInRow = true;
                 for (int col = 0; col < boardSize; col++)
-                    if (board[row][col] != p)
-                        break; // found another player, continue to loop through the rows
-                foundWin = true;
+                    if (board[row][col] != p) {
+                        // found another player, continue to loop through the rows
+                        foundWinInRow = false;
+                        break;
+                    }
+
+                // entire row belonged to player, return true
+                if (foundWinInRow)
+                    return true;
             }
 
-        return foundWin;
+        return false;
     }
 
     public static boolean checkDiagonalWin(Player p)
@@ -179,8 +205,6 @@ public class GameManager {
 
             }
         }
-
-
 
         return false;
 

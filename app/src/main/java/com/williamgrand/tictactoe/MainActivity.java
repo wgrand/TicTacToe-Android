@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,12 +20,7 @@ public class MainActivity extends AppCompatActivity {
         /* initialize */
 
         // create a game
-        GameManager.createGame(new Player[][] {
-                {Player.O, null, null, Player.X},
-                {null, Player.O, null, null},
-                {null, null, Player.O, null},
-                {null, null, null, Player.O}
-        });
+        GameManager.createGame();
 
         boardAdapter = new GridViewAdapter(this);
 
@@ -34,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         this.boardView.setAdapter(boardAdapter);
 
         /* populate */
+        boardAdapter.notifyDataSetChanged();
 
         /* actions */
         boardView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -43,8 +40,17 @@ public class MainActivity extends AppCompatActivity {
                 int col = position % GameManager.boardSize;
                 int row = position / GameManager.boardSize;
                 boolean success = GameManager.makeMove(row, col);
-                if (success)
+                if (success) {
+
+                    // update board
                     boardAdapter.notifyDataSetChanged();
+
+                    Player winner = GameManager.checkWinner();
+
+                    if (winner != null)
+                        Toast.makeText(MainActivity.this, winner == Player.O ? "O won!" : "X won!", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 
