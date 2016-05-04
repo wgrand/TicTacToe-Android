@@ -151,8 +151,7 @@ public class GameManager {
                 && board[boardSize-1][boardSize-1] == p;
     }
 
-    // might need Connected-component labeling algorithm: https://en.wikipedia.org/wiki/Connected-component_labeling
-    // do union thing; if you end up with a 2x2 array, then you have a match
+    // Connected-component labeling algorithm could handle larger areas and various patterns: https://en.wikipedia.org/wiki/Connected-component_labeling
     public static boolean checkBlobWin(Player p)
     {
 
@@ -162,9 +161,7 @@ public class GameManager {
             // traverse by column
             for (int u = 1; u < boardSize; u++) {
 
-                System.out.println(v + "," + u);
-
-                // found match, so check left and above
+                // found match, so check left, above, and left-above
                 if (board[v][u] == p) {
 
                     Player leftP = u - 1 < 0 ? null : board[v][u - 1];
