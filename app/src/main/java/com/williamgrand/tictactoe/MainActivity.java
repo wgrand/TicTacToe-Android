@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     private View turnView;
     private GridView boardView;
+    private View winBoardView;
     private GridViewAdapter boardAdapter;
 
     @Override
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         /* layout */
         this.turnView = this.findViewById(R.id.turnView);
+        this.winBoardView = this.findViewById(R.id.winBoardView);
         this.boardView = (GridView) this.findViewById(R.id.boardView);
         this.boardView.setNumColumns(GameManager.boardSize);
         this.boardView.setAdapter(boardAdapter);
