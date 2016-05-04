@@ -17,4 +17,21 @@
         android:stretchMode="columnWidth"
         android:id="@+id/boardView" />
 
+    <View
+        android:id="@+id/turnView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New game"
+        android:background="@color/colorPrimary"
+        android:textColor="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/newGameButton" />
+
 </RelativeLayout>

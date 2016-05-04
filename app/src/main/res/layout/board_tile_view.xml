@@ -7,14 +7,14 @@
         android:id="@+id/playerOImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@color/colorAccent"
+        android:src="@color/playerOColor"
         />
 
     <ImageView
         android:id="@+id/playerXImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@color/colorPrimary"
+        android:src="@color/playerXColor"
         />
 
 </RelativeLayout>

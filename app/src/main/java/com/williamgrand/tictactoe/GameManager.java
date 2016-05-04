@@ -1,5 +1,8 @@
 package com.williamgrand.tictactoe;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+
 import java.util.ArrayList;
 
 /**
@@ -40,6 +43,14 @@ public class GameManager {
                 System.out.print(board[row][col] + ",");
             System.out.println();
         }
+    }
+
+    public static int getTurnColorResourceId() {
+        if (turn == Player.O)
+            return R.color.playerOColor;
+        if (turn == Player.X)
+            return R.color.playerXColor;
+        return 0; // TODO this isn't a good idea to do
     }
 
     // region Game Play
