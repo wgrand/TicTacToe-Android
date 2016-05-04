@@ -155,46 +155,24 @@ public class GameManager {
     // do union thing; if you end up with a 2x2 array, then you have a match
     public static boolean checkBlobWin(Player p)
     {
-        return checkBlob(board, p);
-    }
 
-    private static boolean checkBlob (Player[][] b, Player p) {
+        // traverse by row
+        for (int v = 1; v < boardSize; v++) {
 
-        Player[][] result = new Player[boardSize][boardSize];
+            // traverse by column
+            for (int u = 1; u < boardSize; u++) {
 
-        int w = b[0].length;
-        int h = b.length;
-        int nextLabel = 1;
+                System.out.println(v + "," + u);
 
-        int [] linked;
-        int [][] NEIGHBOUR = new int[h][w];
+                // found match, so check left and above
+                if (board[v][u] == p) {
 
-        for (int v = 0; v < h; v++) {
+                    Player leftP = u - 1 < 0 ? null : board[v][u - 1];
+                    Player aboveP = v - 1 < 0 ? null : board[v-1][u];
+                    Player leftAboveP = (u-1 < 0 || v-1 < 0) ? null : board[v-1][u-1];
 
-            for (int u = 0; u < w; u++) {
-
-                if (b[v][u] != null) {
-
-                    // check left and current
-                    for (int j = -1; j <= 1; j++) {
-
-                        // check above and current
-                        for (int i = -1; i <= 1; i++) {
-
-                            Player sq = b[v + j][u + i];
-
-                            if (sq != null && sq == p) {
-
-                                NEIGHBOUR[v][u] = nextLabel;
-
-                            } else {
-                                nextLabel++;
-                            }
-
-
-                        }
-
-                    }
+                    if (leftP == p && aboveP == p && leftAboveP == p)
+                        return true;
 
                 }
 
@@ -202,71 +180,8 @@ public class GameManager {
         }
 
 
-        System.out.println(nextLabel);
-
-//        ArrayList listOfNeighbors;
-//        int[] pos;
-//        int x = 0;
-//        int m = 0;
-//        int i, j;
-//
-//        Player[] parent;
-//        int label = 0;
-//
-//        for (i = 0; i < boardSize; i++) {
-//            for (j = 0; j < boardSize; j++)
-//                result[i][j] = null;
-//
-//            // first pass
-//            for (j = 0; j < boardSize; j++) {
-//
-//                // if found player,
-//                if (board[i][j] == p) {
-//
-//                    int[] pCoords = {i, j}; // track coords if discovered match
-//                    listOfNeighbors = findNeighbors(pCoords);
-//                    if (listOfNeighbors.isEmpty())
-//                        m = label++; // increment match count?
-//                    else
-//                        m = min (result, boardSize-1); // ?
-//
-////                    result[i][j] = m; // TODO this wants a 0 or 1, but we have null, O, X
-//
-//                    if (x!=m)
-//                        union (m, x, parent);
-//
-//                }
-//
-//            }
-//
-//        }
 
         return false;
-
-        // there aren't too many possibilities for a square win
-        // first, we start by checking each corner
-
-
-//        // top-left
-//        if (board[0][0] == p)
-//            if (checkWinInNeighbors(p, 0, 0, l))
-//                return true; // found a win in top-left corner
-//
-//
-//        // bottom-left
-//        if (board[0][boardSize-1] == p)
-//            if (checkWinInNeighbors(p, 0, boardSize-1, l))
-//                return true; // found a win in top-right corner
-//
-//        // bottom-right
-//        if (board[boardSize-1][boardSize-1] == p)
-//            if (checkWinInNeighbors(p, boardSize-1, boardSize-1, l))
-//                return true; // found a win in bottom-right corner
-//
-//        // top-right
-//        if (board[boardSize-1][0] == p)
-//            if (checkWinInNeighbors(p, boardSize-1, 0, l))
-//                return true;
 
     }
 
