@@ -8,7 +8,9 @@ import java.util.ArrayList;
 public class GameManager {
 
     public static Player[][] board;
-    private static int boardSize;
+    public static int boardSize;
+
+    private static Player turn = Player.O;
     private static int moveCount = 0;
 
     public static void createGame()
@@ -41,7 +43,7 @@ public class GameManager {
     }
 
     // region Game Play
-    public static boolean makeMove (Player p, int row, int col)
+    public static boolean makeMove (int row, int col)
     {
 
         if (board[row][col] != null)
@@ -49,7 +51,7 @@ public class GameManager {
             return false;
 
         // set that coordinate to the new player
-        board[row][col] = p;
+        board[row][col] = turn;
 
         // move was successful
         // TODO check for a win
@@ -58,6 +60,8 @@ public class GameManager {
         if (moveCount == boardSize*boardSize)
             // TODO
             System.out.println("Game over");
+
+        turn = (turn == Player.O ? Player.X : Player.O);
 
         return true;
 
