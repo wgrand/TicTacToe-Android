@@ -111,7 +111,7 @@ public class GameManager {
                 foundWinInColumn = true;
                 for (int row = 0; row < boardSize; row++)
                     if (board[row][col] != p) {
-                        // found another player, continue to loop through the columns
+                        // found opposing player, continue to loop through the columns
                         foundWinInColumn = false;
                         break;
                     }
@@ -135,7 +135,7 @@ public class GameManager {
                 foundWinInRow = true;
                 for (int col = 0; col < boardSize; col++)
                     if (board[row][col] != p) {
-                        // found another player, continue to loop through the rows
+                        // found opposing player, continue to loop through the rows
                         foundWinInRow = false;
                         break;
                     }

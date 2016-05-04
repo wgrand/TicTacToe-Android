@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         this.boardView.setNumColumns(GameManager.boardSize);
         this.boardView.setAdapter(boardAdapter);
 
-        /* populate */
+        /* render board */
         boardAdapter.notifyDataSetChanged();
 
         /* actions */

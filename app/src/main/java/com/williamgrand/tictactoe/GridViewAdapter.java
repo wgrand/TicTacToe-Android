@@ -2,12 +2,11 @@ package com.williamgrand.tictactoe;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.RelativeLayout;
 
 /**
  * Created by wgrand on 5/4/16.
@@ -42,8 +41,10 @@ public class GridViewAdapter extends BaseAdapter {
 
         if (convertView == null) {
 
-            view = new View(context);
-            view.setLayoutParams(new ViewGroup.LayoutParams(convertDpToPixel(75f), convertDpToPixel(75f)));
+            view = LayoutInflater.from(context).inflate(R.layout.board_tile_view, parent, false);
+
+            // hardcode width and height
+            view.setLayoutParams(new ViewGroup.LayoutParams(convertDpToPixel(300f/GameManager.boardSize), convertDpToPixel(300f/GameManager.boardSize)));
 
         } else {
 
@@ -54,12 +55,16 @@ public class GridViewAdapter extends BaseAdapter {
         int col = position % GameManager.boardSize;
         int row = position / GameManager.boardSize;
 
-        if (GameManager.board[row][col] == null)
-            view.setBackgroundColor(Color.WHITE);
-        else if (GameManager.board[row][col] == Player.O)
-            view.setBackgroundColor(Color.BLUE);
-        else if (GameManager.board[row][col] == Player.X)
-            view.setBackgroundColor(Color.RED);
+        if (GameManager.board[row][col] == null) {
+            view.findViewById(R.id.playerOImageView).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.playerXImageView).setVisibility(View.INVISIBLE);
+        } else if (GameManager.board[row][col] == Player.O) {
+            view.findViewById(R.id.playerOImageView).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.playerXImageView).setVisibility(View.INVISIBLE);
+        } else if (GameManager.board[row][col] == Player.X) {
+            view.findViewById(R.id.playerOImageView).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.playerXImageView).setVisibility(View.VISIBLE);
+        }
 
         return view;
     }
@@ -67,8 +72,7 @@ public class GridViewAdapter extends BaseAdapter {
     private int convertDpToPixel(float dp){
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        int px = (int) (dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
-        return px;
+        return (int) (dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
 }
