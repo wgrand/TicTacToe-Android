@@ -10,6 +10,7 @@ public class GameManager {
 
     private static Player turn = Player.O;
     private static int moveCount = 0;
+    private static Player[][] lastWin;
 
     public static void createGame()
     {
@@ -22,6 +23,7 @@ public class GameManager {
         GameManager.board = board;
         dimen = board[0].length;
         moveCount = 0;
+        lastWin = null;
     }
 
     public static void createGame(int boardSize)
@@ -29,6 +31,7 @@ public class GameManager {
         board = new Player[boardSize][boardSize];
         GameManager.dimen = boardSize;
         moveCount = 0;
+        lastWin = null;
     }
 
     public static void printBoard()
@@ -52,18 +55,25 @@ public class GameManager {
     public static boolean makeMove (int row, int col)
     {
 
+        // a move has already been made at that coordinate, return unsuccessful
         if (board[row][col] != null)
-            // a move has already been made at that coordinate, return unsuccessful
+            return false;
+
+        // check for full board
+        if (moveCount >= dimen * dimen)
+            return false;
+
+        // check if game already won
+        if (lastWin != null)
             return false;
 
         // set that coordinate to the new player
         board[row][col] = turn;
 
         // move was successful
-        // TODO check for a win
         moveCount++;
 
-        if (moveCount == dimen * dimen)
+
             // TODO
             System.out.println("Game over");
 
@@ -86,30 +96,30 @@ public class GameManager {
 
     public static Player[][] getWinningMatrix()
     {
-        Player[][] w;
-        if ((w = checkWin(Player.O)) != null)
-            return w;
-        if ((w = checkWin(Player.X)) != null)
-            return w;
-        return null;
+        lastWin = null;
+        if ((lastWin = checkWin(Player.O)) != null)
+            return lastWin;
+        if ((lastWin = checkWin(Player.X)) != null)
+            return lastWin;
+        return lastWin;
     }
 
     private static Player[][] checkWin(Player p)
     {
-        Player[][] w;
+        lastWin = null;
 
-        if ((w = checkVerticalWin(p)) != null)
-            return w;
-        else if ((w = checkHorizontalWin(p)) != null)
-            return w;
-        else if ((w = checkDiagonalWin(p)) != null)
-            return w;
-        else if ((w = checkFourCornersWin(p)) != null)
-            return w;
-        else if ((w = checkBlobWin(p)) != null)
-            return w;
+        if ((lastWin = checkVerticalWin(p)) != null)
+            return lastWin;
+        else if ((lastWin = checkHorizontalWin(p)) != null)
+            return lastWin;
+        else if ((lastWin = checkDiagonalWin(p)) != null)
+            return lastWin;
+        else if ((lastWin = checkFourCornersWin(p)) != null)
+            return lastWin;
+        else if ((lastWin = checkBlobWin(p)) != null)
+            return lastWin;
         else
-            return null;
+            return lastWin;
     }
 
     public static Player[][] checkVerticalWin(Player p)
