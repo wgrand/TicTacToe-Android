@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     if (w != null) // we found a winner, display the win to the players
                         flashWin(w);
                     else if (GameManager.maxMovesReached()) // there was a tie, display it to the players
-                        Toast.makeText(MainActivity.this, "Tie!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Tie!", Toast.LENGTH_LONG).show();
 
                 }
 
@@ -103,10 +103,7 @@ public class MainActivity extends AppCompatActivity {
     protected void flashWin(Player[][] w)
     {
 
-//        Toast t = new Toast(this);
-//        View v = LayoutInflater.from(this).inflate(R.layout.board_tile_view, this.boardView);
-//        t.setView(v);
-//        t.show();
+        Toast.makeText(MainActivity.this, "Win!", Toast.LENGTH_LONG).show();
 
         int position = 0;
         for (int row = 0; row < GameManager.dimen; row++) {
