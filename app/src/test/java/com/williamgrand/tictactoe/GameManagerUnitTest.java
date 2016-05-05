@@ -24,10 +24,10 @@ public class GameManagerUnitTest {
         GameManager.createGame(winningBoard);
 
         // O
-        assertTrue(GameManager.checkVerticalWin(Player.O));
+        assertNotNull(GameManager.checkVerticalWin(Player.O));
 
         // X
-        assertTrue(GameManager.checkVerticalWin(Player.X));
+        assertNotNull(GameManager.checkVerticalWin(Player.X));
 
     }
     @Test
@@ -43,10 +43,10 @@ public class GameManagerUnitTest {
         GameManager.createGame(losingBoard);
 
         // O
-        assertFalse(GameManager.checkVerticalWin(Player.O));
+        assertNull(GameManager.checkVerticalWin(Player.O));
 
         // X
-        assertFalse(GameManager.checkVerticalWin(Player.X));
+        assertNull(GameManager.checkVerticalWin(Player.X));
 
     }
 
@@ -63,10 +63,10 @@ public class GameManagerUnitTest {
         GameManager.createGame(winningBoard);
 
         // O
-        assertTrue(GameManager.checkHorizontalWin(Player.O));
+        assertNotNull(GameManager.checkHorizontalWin(Player.O));
 
         // X
-        assertTrue(GameManager.checkHorizontalWin(Player.X));
+        assertNotNull(GameManager.checkHorizontalWin(Player.X));
 
     }
 
@@ -83,10 +83,10 @@ public class GameManagerUnitTest {
         GameManager.createGame(losingBoard);
 
         // O
-        assertFalse(GameManager.checkHorizontalWin(Player.O));
+        assertNull(GameManager.checkHorizontalWin(Player.O));
 
         // X
-        assertFalse(GameManager.checkHorizontalWin(Player.X));
+        assertNull(GameManager.checkHorizontalWin(Player.X));
 
     }
 
@@ -104,10 +104,10 @@ public class GameManagerUnitTest {
         GameManager.createGame(winningBoard_O_1);
 
         // O
-        assertTrue(GameManager.checkDiagonalWin(Player.O));
+        assertNotNull(GameManager.checkDiagonalWin(Player.O));
 
         // X
-        assertFalse(GameManager.checkDiagonalWin(Player.X));
+        assertNull(GameManager.checkDiagonalWin(Player.X));
 
 
         Player[][] winningBoard_O_2 = new Player[][]{
@@ -120,10 +120,10 @@ public class GameManagerUnitTest {
         GameManager.createGame(winningBoard_O_2);
 
         // O
-        assertTrue(GameManager.checkDiagonalWin(Player.O));
+        assertNotNull(GameManager.checkDiagonalWin(Player.O));
 
         // X
-        assertFalse(GameManager.checkDiagonalWin(Player.X));
+        assertNull(GameManager.checkDiagonalWin(Player.X));
 
 
 
@@ -138,10 +138,10 @@ public class GameManagerUnitTest {
         GameManager.createGame(winningBoard_X_1);
 
         // X
-        assertTrue(GameManager.checkDiagonalWin(Player.X));
+        assertNotNull(GameManager.checkDiagonalWin(Player.X));
 
         // O
-        assertFalse(GameManager.checkDiagonalWin(Player.O));
+        assertNull(GameManager.checkDiagonalWin(Player.O));
 
 
         Player[][] winningBoard_X_2 = new Player[][]{
@@ -154,10 +154,10 @@ public class GameManagerUnitTest {
         GameManager.createGame(winningBoard_X_2);
 
         // X
-        assertTrue(GameManager.checkDiagonalWin(Player.X));
+        assertNotNull(GameManager.checkDiagonalWin(Player.X));
 
         // O
-        assertFalse(GameManager.checkDiagonalWin(Player.O));
+        assertNull(GameManager.checkDiagonalWin(Player.O));
 
     }
 
@@ -174,10 +174,10 @@ public class GameManagerUnitTest {
         GameManager.createGame(winningBoard_X);
 
         // X
-        assertTrue(GameManager.checkFourCornersWin(Player.X));
+        assertNotNull(GameManager.checkFourCornersWin(Player.X));
 
         // O
-        assertFalse(GameManager.checkFourCornersWin(Player.O));
+        assertNull(GameManager.checkFourCornersWin(Player.O));
 
         Player[][] winningBoard_O = new Player[][]{
                 {Player.O, null, null, Player.O},
@@ -189,10 +189,10 @@ public class GameManagerUnitTest {
         GameManager.createGame(winningBoard_O);
 
         // X
-        assertFalse(GameManager.checkFourCornersWin(Player.X));
+        assertNull(GameManager.checkFourCornersWin(Player.X));
 
         // O
-        assertTrue(GameManager.checkFourCornersWin(Player.O));
+        assertNotNull(GameManager.checkFourCornersWin(Player.O));
 
     }
 
@@ -210,10 +210,10 @@ public class GameManagerUnitTest {
         GameManager.createGame(losingBoard);
 
         // X
-        assertFalse(GameManager.checkFourCornersWin(Player.X));
+        assertNull(GameManager.checkFourCornersWin(Player.X));
 
         // O
-        assertFalse(GameManager.checkFourCornersWin(Player.O));
+        assertNull(GameManager.checkFourCornersWin(Player.O));
 
     }
 
@@ -231,10 +231,10 @@ public class GameManagerUnitTest {
         GameManager.createGame(winningBoard);
 
         // O
-        assertTrue(GameManager.checkBlobWin(Player.O));
+        assertNotNull(GameManager.checkBlobWin(Player.O));
 
         // X
-        assertFalse(GameManager.checkBlobWin(Player.X));
+        assertNull(GameManager.checkBlobWin(Player.X));
 
     }
 
