@@ -14,7 +14,6 @@ public class MainActivity extends AppCompatActivity {
 
     private View turnView;
     private GridView boardView;
-    private View winBoardView;
     private GridViewAdapter boardAdapter;
 
     @Override
@@ -31,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
         /* layout */
         this.turnView = this.findViewById(R.id.turnView);
-        this.winBoardView = this.findViewById(R.id.winBoardView);
         this.boardView = (GridView) this.findViewById(R.id.boardView);
         this.boardView.setNumColumns(GameManager.dimen);
         this.boardView.setAdapter(boardAdapter);
@@ -58,11 +56,10 @@ public class MainActivity extends AppCompatActivity {
 
                     Player[][] w = GameManager.getWinningMatrix();
 
-                    if (w != null) {
+                    if (w != null)
                         flashWin(w);
-                    }
-
-                    // TODO handle tie
+                    else if (GameManager.maxMovesReached()) // handle tie
+                        Toast.makeText(MainActivity.this, "Tie!", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -154,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
-            System.out.println();
+
         }
 
     }

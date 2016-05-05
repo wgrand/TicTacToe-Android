@@ -73,6 +73,11 @@ public class GameManager {
 
     }
 
+    public static boolean maxMovesReached()
+    {
+        return moveCount >= dimen * dimen;
+    }
+
 
     // endregion
 
@@ -184,19 +189,21 @@ public class GameManager {
             else // no win found, move on to check other diagonal
             {
                 foundWin = false;
+                // clear matrix
+                w = new Player[dimen][dimen];
                 break;
             }
 
-
         if (foundWin)
             return w;
-        else // check bottom-left to top-right
-            for (int i = 0; i < dimen; i++) {
-                if (board[i][dimen - 1 - i] == p)
-                    board[i][dimen - 1 - i] = p;
-                else
-                    return null; // no win in this diagonal either, return false
-            }
+
+        // check bottom-left to top-right
+        for (int i = 0; i < dimen; i++) {
+            if (board[i][dimen - 1 - i] == p)
+                w[i][dimen - 1 - i] = p;
+            else
+                return null; // no win in this diagonal either, return false
+        }
 
         return w; // found win in bottom-left to top-right diagonal
 
