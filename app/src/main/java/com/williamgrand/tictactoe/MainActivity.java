@@ -2,6 +2,7 @@ package com.williamgrand.tictactoe;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -9,6 +10,8 @@ import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
+
+import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,11 +57,12 @@ public class MainActivity extends AppCompatActivity {
                     // update board
                     drawBoard();
 
+                    // the board with just the winning markers
                     Player[][] w = GameManager.getWinningMatrix();
 
-                    if (w != null)
+                    if (w != null) // we found a winner, display the win to the players
                         flashWin(w);
-                    else if (GameManager.maxMovesReached()) // handle tie
+                    else if (GameManager.maxMovesReached()) // there was a tie, display it to the players
                         Toast.makeText(MainActivity.this, "Tie!", Toast.LENGTH_SHORT).show();
 
                 }
@@ -99,9 +103,10 @@ public class MainActivity extends AppCompatActivity {
     protected void flashWin(Player[][] w)
     {
 
-//        Toast.makeText(MainActivity.this, winner == Player.O ? "O won!" : "X won!", Toast.LENGTH_SHORT).show(); // TODO prompt user
-
-        Toast.makeText(MainActivity.this, "Win!", Toast.LENGTH_SHORT).show(); // TODO prompt user
+//        Toast t = new Toast(this);
+//        View v = LayoutInflater.from(this).inflate(R.layout.board_tile_view, this.boardView);
+//        t.setView(v);
+//        t.show();
 
         int position = 0;
         for (int row = 0; row < GameManager.dimen; row++) {
