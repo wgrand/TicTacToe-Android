@@ -22,7 +22,7 @@ public class GridViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return GameManager.boardSize*GameManager.boardSize;
+        return GameManager.dimen * GameManager.dimen;
     }
 
     @Override
@@ -45,17 +45,15 @@ public class GridViewAdapter extends BaseAdapter {
             view = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.board_tile_view, parent, false);
 
             // hardcode width and height
-            view.setLayoutParams(new ViewGroup.LayoutParams(convertDpToPixel(300f/GameManager.boardSize), convertDpToPixel(300f/GameManager.boardSize)));
+            view.setLayoutParams(new ViewGroup.LayoutParams(convertDpToPixel(300f/GameManager.dimen), convertDpToPixel(300f/GameManager.dimen)));
 
-        } else {
-
+        } else
             view = (RelativeLayout) convertView;
 
-        }
+        int col = position % GameManager.dimen;
+        int row = position / GameManager.dimen;
 
-        int col = position % GameManager.boardSize;
-        int row = position / GameManager.boardSize;
-
+        // render the tile as empty, O, or X
         if (GameManager.board[row][col] == null) {
             view.findViewById(R.id.playerOImageView).setVisibility(View.INVISIBLE);
             view.findViewById(R.id.playerXImageView).setVisibility(View.INVISIBLE);
@@ -68,6 +66,7 @@ public class GridViewAdapter extends BaseAdapter {
         }
 
         return view;
+
     }
 
     private int convertDpToPixel(float dp){

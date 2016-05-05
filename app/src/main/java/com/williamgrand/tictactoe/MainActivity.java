@@ -1,9 +1,11 @@
 package com.williamgrand.tictactoe;
 
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -12,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     private View turnView;
     private GridView boardView;
+    private View winBoardView;
     private GridViewAdapter boardAdapter;
 
     @Override
@@ -28,17 +31,13 @@ public class MainActivity extends AppCompatActivity {
 
         /* layout */
         this.turnView = this.findViewById(R.id.turnView);
+        this.winBoardView = this.findViewById(R.id.winBoardView);
         this.boardView = (GridView) this.findViewById(R.id.boardView);
-        this.boardView.setNumColumns(GameManager.boardSize);
+        this.boardView.setNumColumns(GameManager.dimen);
         this.boardView.setAdapter(boardAdapter);
 
         /* populate */
-
-        // render board
-        boardAdapter.notifyDataSetChanged();
-
-        // show player turn
-        turnView.setBackgroundResource(GameManager.getTurnColorResourceId());
+        drawBoard();
 
         /* actions */
 
@@ -47,27 +46,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                int col = position % GameManager.boardSize;
-                int row = position / GameManager.boardSize;
+                int col = position % GameManager.dimen;
+                int row = position / GameManager.dimen;
 
-                boolean success = GameManager.makeMove(row, col);
+                boolean moveMade = GameManager.makeMove(row, col);
 
-                if (success) {
+                if (moveMade) {
 
                     // update board
-                    boardAdapter.notifyDataSetChanged();
+                    drawBoard();
 
-                    Player winner = GameManager.checkWinner();
+                    Player[][] w = GameManager.getWinningMatrix();
 
-                    if (winner != null)
-                        Toast.makeText(MainActivity.this, winner == Player.O ? "O won!" : "X won!", Toast.LENGTH_SHORT).show(); // TODO prompt user
+                    if (w != null) {
+                        flashWin(w);
+                    }
 
                     // TODO handle tie
 
                 }
-
-                // show player turn
-                turnView.setBackgroundResource(GameManager.getTurnColorResourceId());
 
             }
         });
@@ -92,4 +89,67 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    protected void drawBoard()
+    {
+        // render board
+        boardAdapter.notifyDataSetChanged();
+
+        // show player turn
+        turnView.setBackgroundResource(GameManager.getTurnColorResourceId());
+
+    }
+
+    protected void flashWin(Player[][] w)
+    {
+
+//        Toast.makeText(MainActivity.this, winner == Player.O ? "O won!" : "X won!", Toast.LENGTH_SHORT).show(); // TODO prompt user
+
+        Toast.makeText(MainActivity.this, "Win!", Toast.LENGTH_SHORT).show(); // TODO prompt user
+
+        int position = 0;
+        for (int row = 0; row < GameManager.dimen; row++) {
+            for (int col = 0; col < GameManager.dimen; col++) {
+
+                // get position
+                position = row*GameManager.dimen+col;
+
+                // apply animation to winner's tiles
+                if (w[row][col] != null) {
+
+                    // get the white overlay on the tile
+                    View tileView = this.boardView.getChildAt(position);
+                    final View flashWinnerOverlayView = tileView.findViewById(R.id.flashWinnerOverlayView);
+
+                    // set the overlay to visible
+                    flashWinnerOverlayView.setVisibility(View.VISIBLE);
+
+                    AlphaAnimation animation = new AlphaAnimation(1.0f, 0.0f);
+                    animation.setDuration(500);
+//                animation.setStartOffset(100*position);
+//                animation.setRepeatMode(Animation.REVERSE);
+                    animation.setRepeatCount(3);
+
+                    animation.setAnimationListener(new Animation.AnimationListener() {
+
+                        @Override
+                        public void onAnimationEnd(Animation arg0) {
+                            flashWinnerOverlayView.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationStart(Animation arg0) {
+                            flashWinnerOverlayView.setVisibility(View.VISIBLE);
+
+                        }
+
+                    });
+
+                    flashWinnerOverlayView.setAnimation(animation);
+                }
+
+            }
+            System.out.println();
+        }
+
+    }
 }
