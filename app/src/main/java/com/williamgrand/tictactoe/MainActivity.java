@@ -137,12 +137,6 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onAnimationRepeat(Animation arg0) {
-                            // TODO Auto-generated method stub
-
-                        }
-
-                        @Override
                         public void onAnimationStart(Animation arg0) {
                             flashWinnerOverlayView.setVisibility(View.VISIBLE);
 

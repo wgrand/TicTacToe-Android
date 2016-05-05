@@ -47,11 +47,8 @@ public class GridViewAdapter extends BaseAdapter {
             // hardcode width and height
             view.setLayoutParams(new ViewGroup.LayoutParams(convertDpToPixel(300f/GameManager.dimen), convertDpToPixel(300f/GameManager.dimen)));
 
-        } else {
-
+        } else
             view = (RelativeLayout) convertView;
-
-        }
 
         int col = position % GameManager.dimen;
         int row = position / GameManager.dimen;
